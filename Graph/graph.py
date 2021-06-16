@@ -139,6 +139,41 @@ class Graph:
         def get_adj_matrix_repr(self):
                 return self.__adj_matrix
   
-  
-  
+        def __root(self,node,nodeSet):
+            while(node != nodeSet[node]):
+                node = nodeSet[node] 
+            return node 
+                
+            
+        def __find(self,nodeA,nodeB,nodeSet):
+            return self.__root(nodeA,nodeSet) == self.__root(nodeB,nodeSet)
+            
+        def __union(self,nodeA,nodeB,nodeSet):
+            nodeSet[self.__root(nodeB,nodeSet)] = self.__root(nodeA,nodeSet) 
+            
+            
+            
+        def kruskal_algorithm(self):
+            
+            nodeSet = [node for node in range(self.num_of_vertices)]
+            
+            final_set = []
+            
+            k_edge_list = self.__edge_list.copy()
+            
+            k_edge_list.sort(key=lambda edge:edge.weight)
+            print(k_edge_list)
+            for each_edge in k_edge_list:
+                
+                if not self.__find(each_edge.src-1,each_edge.dest-1,nodeSet):
+                    
+                    final_set.append(each_edge)        
+                    
+                    self.__union(each_edge.src-1,each_edge.dest-1,nodeSet)
+            
+            print(final_set)
+                 
+             
+            
 
+            
