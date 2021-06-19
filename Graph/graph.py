@@ -162,7 +162,7 @@ class Graph:
             k_edge_list = self.__edge_list.copy()
             
             k_edge_list.sort(key=lambda edge:edge.weight)
-            print(k_edge_list)
+            
             for each_edge in k_edge_list:
                 
                 if not self.__find(each_edge.src-1,each_edge.dest-1,nodeSet):
@@ -172,6 +172,11 @@ class Graph:
                     self.__union(each_edge.src-1,each_edge.dest-1,nodeSet)
             
             print(final_set)
+            
+            
+        def prims_algorithm(self):
+            
+            PQ = 
                  
              
             
