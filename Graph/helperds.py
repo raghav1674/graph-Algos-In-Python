@@ -1,9 +1,14 @@
-class MinHeap:
+class Heap:
 
     def __iter__(self):
         return iter(self.arr[:self.size+1])
 
-    def __init__(self, size=10):
+    def __init__(self, size=10, min=True):
+
+        self.cmp = lambda first, second: first <= second
+
+        if not min:
+            self.cmp = lambda first, second: first >= second
 
         self.cap = size
         self.arr = [float('+inf')]*size
@@ -22,7 +27,7 @@ class MinHeap:
             parent_index = (index - 1)//2
             temp = data
 
-            while index > 0 and temp <= self.arr[parent_index]:
+            while index > 0 and self.cmp(temp, self.arr[parent_index]):
 
                 self.arr[index] = self.arr[parent_index]
                 index = parent_index
@@ -55,13 +60,13 @@ class MinHeap:
 
         right = 2 * index + 2
 
-        if temp <= self.arr[left] and temp <= self.arr[right]:
+        if self.cmp(temp, self.arr[left]) and self.cmp(temp, self.arr[right]):
 
             self.arr[index] = temp
         else:
             while left <= self.size and right <= self.size:
 
-                if self.arr[left] <= self.arr[right]:
+                if self.cmp(self.arr[left], self.arr[right]):
 
                     self.arr[index] = self.arr[left]
 
@@ -79,7 +84,7 @@ class MinHeap:
 
 
 if __name__ == '__main__':
-    mypq = MinHeap()
+    mypq = Heap(min=False)
     mypq.put(-100000)
     mypq.put(-2)
     mypq.put(-100000)
